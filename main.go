@@ -22,6 +22,10 @@ func main() {
 	http.HandleFunc("/user/signin", handler.SignInHandler)
 	http.HandleFunc("/user/info", handler.HttpInterceptor(handler.UserInfoHandler))
 	http.HandleFunc("/file/fastupload", handler.HttpInterceptor(handler.TryFastUploadHandler))
+	http.HandleFunc("/file/mpupload/init", handler.HttpInterceptor(handler.InitialMultipartUploadHandler))
+	http.HandleFunc("/file/mpupload/uppart", handler.HttpInterceptor(handler.UploadPartHandler))
+	http.HandleFunc("/file/mpupload/complete", handler.HttpInterceptor(handler.CompleteUploadHandler))
+	//验证 cat `ls | sort -n` > /tmp/a
 	err := http.ListenAndServe(":9999", nil)
 	if err != nil {
 		fmt.Println("start server failed, err:", err)
